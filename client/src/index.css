@@ -1,0 +1,274 @@
+/*
+ * THE PISTOLINKR CODE MUSEUM
+ * Design Philosophy: Neo-Noir Futurism / Digital Noir Museum
+ * 
+ * Color Tokens:
+ *   Background:  #0D1117 (deep charcoal-navy)
+ *   Surface:     #0F1923 (slightly lighter navy)
+ *   Panel:       rgba(15,25,35,0.7) (glass morphism)
+ *   Accent Cyan: #00D4FF (electric cyan — spotlight/highlight)
+ *   Accent Gold: #C9A84C (soft gold — exhibit labels/plaques)
+ *   Text Primary: #E8EDF2 (near-white)
+ *   Text Muted:  #6B7A8D (cool gray)
+ *   Border:      rgba(0,212,255,0.15) (subtle cyan border)
+ * 
+ * Typography:
+ *   Display:  Cormorant Garamond (elegant serif)
+ *   Mono:     DM Mono (code/labels)
+ *   Body:     DM Sans (readable sans)
+ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Museum custom tokens */
+  --color-museum-bg: var(--museum-bg);
+  --color-museum-surface: var(--museum-surface);
+  --color-museum-cyan: var(--museum-cyan);
+  --color-museum-gold: var(--museum-gold);
+  --color-museum-border: var(--museum-border);
+}
+
+:root {
+  --radius: 0.5rem;
+  
+  /* Museum dark theme (always dark) */
+  --background: oklch(0.098 0.012 240);
+  --foreground: oklch(0.91 0.008 220);
+  --card: oklch(0.12 0.015 235);
+  --card-foreground: oklch(0.91 0.008 220);
+  --popover: oklch(0.12 0.015 235);
+  --popover-foreground: oklch(0.91 0.008 220);
+  --primary: oklch(0.75 0.18 195);
+  --primary-foreground: oklch(0.098 0.012 240);
+  --secondary: oklch(0.16 0.015 235);
+  --secondary-foreground: oklch(0.75 0.008 220);
+  --muted: oklch(0.16 0.015 235);
+  --muted-foreground: oklch(0.52 0.02 225);
+  --accent: oklch(0.75 0.18 195);
+  --accent-foreground: oklch(0.098 0.012 240);
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.75 0.18 195 / 0.15);
+  --input: oklch(0.75 0.18 195 / 0.12);
+  --ring: oklch(0.75 0.18 195);
+  --chart-1: oklch(0.75 0.18 195);
+  --chart-2: oklch(0.72 0.14 80);
+  --chart-3: oklch(0.65 0.20 150);
+  --chart-4: oklch(0.60 0.22 280);
+  --chart-5: oklch(0.70 0.18 30);
+  --sidebar: oklch(0.12 0.015 235);
+  --sidebar-foreground: oklch(0.91 0.008 220);
+  --sidebar-primary: oklch(0.75 0.18 195);
+  --sidebar-primary-foreground: oklch(0.098 0.012 240);
+  --sidebar-accent: oklch(0.16 0.015 235);
+  --sidebar-accent-foreground: oklch(0.91 0.008 220);
+  --sidebar-border: oklch(0.75 0.18 195 / 0.15);
+  --sidebar-ring: oklch(0.75 0.18 195);
+  
+  /* Museum-specific custom properties */
+  --museum-bg: #0D1117;
+  --museum-surface: #0F1923;
+  --museum-cyan: #00D4FF;
+  --museum-gold: #C9A84C;
+  --museum-border: rgba(0, 212, 255, 0.15);
+  --museum-glow: rgba(0, 212, 255, 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    background-color: #0D1117;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  a[href],
+  select:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+  
+  /* Museum typography classes */
+  .font-display {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .font-mono-museum {
+    font-family: 'DM Mono', monospace;
+  }
+  
+  /* Glass morphism panel */
+  .glass-panel {
+    background: rgba(15, 25, 35, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+  }
+  
+  /* Exhibit card glow */
+  .exhibit-glow {
+    box-shadow: 
+      0 0 0 1px rgba(0, 212, 255, 0.12),
+      0 4px 24px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(0, 212, 255, 0.04) inset;
+  }
+  
+  .exhibit-glow:hover {
+    box-shadow: 
+      0 0 0 1px rgba(0, 212, 255, 0.35),
+      0 8px 40px rgba(0, 0, 0, 0.5),
+      0 0 80px rgba(0, 212, 255, 0.08) inset,
+      0 -20px 60px rgba(0, 212, 255, 0.06) inset;
+  }
+  
+  /* Spotlight radial effect */
+  .spotlight {
+    position: relative;
+  }
+  
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 80px;
+    background: radial-gradient(ellipse at center, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  /* Gold exhibit label */
+  .exhibit-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #C9A84C;
+    text-transform: uppercase;
+  }
+  
+  /* Cyan accent text */
+  .text-cyan-accent {
+    color: #00D4FF;
+  }
+  
+  /* Gold accent text */
+  .text-gold-accent {
+    color: #C9A84C;
+  }
+  
+  /* Section divider line */
+  .museum-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+  }
+  
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0D1117;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.3);
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 212, 255, 0.5);
+  }
+  
+  /* Language badge colors */
+  .lang-javascript { background: rgba(240, 219, 79, 0.15); color: #F0DB4F; border-color: rgba(240, 219, 79, 0.3); }
+  .lang-typescript { background: rgba(49, 120, 198, 0.15); color: #3178C6; border-color: rgba(49, 120, 198, 0.3); }
+  .lang-python { background: rgba(55, 118, 171, 0.15); color: #3776AB; border-color: rgba(55, 118, 171, 0.3); }
+  .lang-html { background: rgba(227, 76, 38, 0.15); color: #E34C26; border-color: rgba(227, 76, 38, 0.3); }
+  .lang-css { background: rgba(38, 77, 228, 0.15); color: #264DE4; border-color: rgba(38, 77, 228, 0.3); }
+  .lang-swift { background: rgba(240, 81, 56, 0.15); color: #F05138; border-color: rgba(240, 81, 56, 0.3); }
+  .lang-default { background: rgba(0, 212, 255, 0.1); color: #00D4FF; border-color: rgba(0, 212, 255, 0.25); }
+}
