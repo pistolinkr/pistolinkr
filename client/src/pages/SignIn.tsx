@@ -10,7 +10,7 @@ export default function SignIn() {
       <div className="relative flex h-full min-h-[100dvh] flex-col md:min-h-0 md:h-full">
         <BrandTitle
           weight="light"
-          className="relative z-10 mb-2 pt-[max(56px,env(safe-area-inset-top))] text-center md:pt-14"
+          className="relative z-10 mb-2 pt-[max(56px,env(safe-area-inset-top))] text-center md:pt-16"
         />
 
         <div className="relative z-10 mt-[28px] px-[28px]">

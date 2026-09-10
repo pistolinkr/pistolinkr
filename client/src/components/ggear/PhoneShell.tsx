@@ -23,14 +23,14 @@ export default function PhoneShell({
         <defs>
           <filter
             id="ggear-sketch"
-            x="-4%"
-            y="-4%"
-            width="108%"
-            height="108%"
+            x="-8%"
+            y="-8%"
+            width="116%"
+            height="116%"
           >
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="0.8"
+              baseFrequency="0.65"
               numOctaves="2"
               seed="4"
               result="noise"
@@ -38,14 +38,15 @@ export default function PhoneShell({
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
-              scale="1.2"
+              scale="1.8"
               xChannelSelector="R"
               yChannelSelector="G"
             />
           </filter>
         </defs>
       </svg>
-      <div className={cn("ggear-phone", striped && "ggear-stripes", className)}>
+      <div className={cn("ggear-phone", className)}>
+        {striped ? <div className="ggear-stripe-layer" /> : null}
         {children}
       </div>
     </div>

@@ -12,21 +12,20 @@ export default function Home() {
   return (
     <PhoneShell>
       <div className="flex h-full min-h-[100dvh] flex-col px-[22px] pb-[22px] pt-[max(56px,env(safe-area-inset-top))] md:min-h-0 md:h-full">
-        <BrandTitle className="mb-[14px] text-center" />
+        <BrandTitle className="mb-[10px] text-center" />
 
         <div className="relative flex min-h-0 flex-1 flex-col">
-          <Link
-            href="/signin"
-            className="absolute -top-[6px] right-0 z-20"
-          >
-            <span className="relative inline-flex items-center rounded-full bg-[#D85040] px-[14px] py-[7px] text-[13px] font-medium leading-none text-white">
-              Sign in now →
-              <SketchBorder className="rounded-full" radius={999} />
-            </span>
-          </Link>
-
-          <div className="relative mt-[22px] flex min-h-0 flex-1 flex-col rounded-[42px] bg-[#FAF6F1] px-[12px] pb-[12px] pt-[28px]">
+          <div className="relative mt-[18px] flex min-h-0 flex-1 flex-col rounded-[42px] bg-[#FAF6F1] px-[12px] pb-[12px] pt-[32px]">
             <SketchBorder radius={42} />
+            <Link
+              href="/signin"
+              className="absolute -top-[14px] right-0 z-20"
+            >
+              <span className="relative inline-flex items-center rounded-full bg-[#D85040] px-[16px] py-[9px] text-[13px] font-medium leading-none text-white">
+                Sign in now →
+                <SketchBorder className="rounded-full" radius={999} />
+              </span>
+            </Link>
             <div className="relative z-0 flex min-h-0 flex-1 flex-col gap-[10px]">
               {CATEGORIES.map((category) => (
                 <ServiceCard

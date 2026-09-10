@@ -299,19 +299,40 @@
 
   .ggear-stripes {
     background-color: #f1e8df;
+  }
+
+  .ggear-stripe-layer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 132px;
+    bottom: 0;
     background-image: repeating-linear-gradient(
       to bottom,
       #f1e8df 0 48px,
       #d8d8da 48px 96px
     );
-    background-position: 0 168px;
+    pointer-events: none;
+  }
+
+  .ggear-phone ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .ggear-phone ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .ggear-phone ::-webkit-scrollbar-thumb {
+    background: rgba(42, 34, 28, 0.25);
+    border-radius: 4px;
   }
 
   @media (min-width: 500px) {
     .ggear-phone {
-      width: 390px;
-      height: 844px;
-      min-height: 844px;
+      width: min(390px, calc((100dvh - 40px) * 390 / 844));
+      height: min(844px, calc(100dvh - 40px));
+      min-height: 0;
       border-radius: 36px;
       box-shadow:
         0 0 0 1px #111,
