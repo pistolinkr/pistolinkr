@@ -1,45 +1,45 @@
-/*
- * THE PISTOLINKR CODE MUSEUM
- * Home — Main page assembling all museum rooms
- * Design: Neo-Noir Futurism / Digital Noir Museum
- * 
- * Sections:
- *   00 — Lobby (HeroSection)
- *   01 — Exhibition Hall (ExhibitionHall)
- *   02 — Featured Exhibits (FeaturedExhibits)
- *   03 — Development Archive (ArchiveTimeline)
- *   04 — About the Creator (AboutCreator)
- *   05 — Live Demos / Interactive Installations (LiveDemos)
- *   06 — Exit / Contact (ContactExit)
- */
-
 import { useGitHub } from "@/hooks/useGitHub";
-import MuseumNav from "@/components/MuseumNav";
-import HeroSection from "@/components/HeroSection";
-import ExhibitionHall from "@/components/ExhibitionHall";
-import FeaturedExhibits from "@/components/FeaturedExhibits";
-import ArchiveTimeline from "@/components/ArchiveTimeline";
-import AboutCreator from "@/components/AboutCreator";
-import ContactExit from "@/components/ContactExit";
-import CursorSpotlight from "@/components/CursorSpotlight";
-import MuseumStats from "@/components/MuseumStats";
-import LiveDemos from "@/components/LiveDemos";
+import { Link } from "wouter";
+import PhoneShell from "@/components/ggear/PhoneShell";
+import BrandTitle from "@/components/ggear/BrandTitle";
+import ServiceCard from "@/components/ggear/ServiceCard";
+import SketchBorder from "@/components/ggear/SketchBorder";
+import { CATEGORIES, currentLine, reposForCategory } from "@/lib/ggear";
 
 export default function Home() {
-  const { profile, repos, loading } = useGitHub();
+  const { repos } = useGitHub();
 
   return (
-    <div className="min-h-screen bg-[#0D1117]">
-      <CursorSpotlight />
-      <MuseumNav />
-      <HeroSection profile={profile} repoCount={repos.length} />
-      <MuseumStats repos={repos} />
-      <ExhibitionHall repos={repos} loading={loading} />
-      <FeaturedExhibits repos={repos} />
-      <ArchiveTimeline repos={repos} />
-      <AboutCreator profile={profile} repos={repos} />
-      <LiveDemos repos={repos} />
-      <ContactExit profile={profile} />
-    </div>
+    <PhoneShell>
+      <div className="flex h-full min-h-[100dvh] flex-col px-[22px] pb-[22px] pt-[max(56px,env(safe-area-inset-top))] md:min-h-0 md:h-full">
+        <BrandTitle className="mb-[14px] text-center" />
+
+        <div className="relative flex min-h-0 flex-1 flex-col">
+          <Link
+            href="/signin"
+            className="absolute -top-[6px] right-0 z-20"
+          >
+            <span className="relative inline-flex items-center rounded-full bg-[#D85040] px-[14px] py-[7px] text-[13px] font-medium leading-none text-white">
+              Sign in now →
+              <SketchBorder className="rounded-full" radius={999} />
+            </span>
+          </Link>
+
+          <div className="relative mt-[22px] flex min-h-0 flex-1 flex-col rounded-[42px] bg-[#FAF6F1] px-[12px] pb-[12px] pt-[28px]">
+            <SketchBorder radius={42} />
+            <div className="relative z-0 flex min-h-0 flex-1 flex-col gap-[10px]">
+              {CATEGORIES.map((category) => (
+                <ServiceCard
+                  key={category.id}
+                  category={category}
+                  current={currentLine(reposForCategory(category.id, repos))}
+                  to={`/c/${category.id}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </PhoneShell>
   );
 }
