@@ -7,13 +7,15 @@ const { colorway } = Astro.props;
 const description = 'pistolinkr — Pistol, a symbol of grace and revolution, and inkr, the hope that it comes true in Korea. Developer and lead at g.gearservice.';
 ---
 <!doctype html>
-<html lang="en" data-colorway={colorway} style={cssVars(colorway)}>
+<html lang="en" data-colorway={colorway} style={`${cssVars(colorway)};color-scheme:${colorway === 'ink-lime' ? 'dark' : 'light'}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>pistolinkr</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content={colorways[colorway].bg} />
+    <!-- every colorway route is the same page in another coat -->
+    <link rel="canonical" href={Astro.site?.href} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

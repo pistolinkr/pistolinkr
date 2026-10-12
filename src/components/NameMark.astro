@@ -1,12 +1,8 @@
 ---
-// P:stolinkr with one half lit and the other dimmed.
+// P:stolinkr whole; the half in focus (data-focus on .name-scene) is lit, the other dimmed.
 import { FULL_VIEWBOX, PISTOL, INKR } from '../data/marks';
-interface Props { lit: 'pistol' | 'inkr' }
-const { lit } = Astro.props;
-const dim = lit === 'pistol' ? INKR : PISTOL;
-const on = lit === 'pistol' ? PISTOL : INKR;
 ---
-<svg class="name-mark" viewBox={FULL_VIEWBOX} role="img" aria-label={`pistolinkr with ${lit} highlighted`}>
-  <g class="dim">{dim.map((d) => <path d={d} />)}</g>
-  <g class="lit" fill="currentColor">{on.map((d) => <path d={d} />)}</g>
+<svg class="name-mark" viewBox={FULL_VIEWBOX} role="img" aria-label="pistolinkr">
+  <g class="pistol">{PISTOL.map((d) => <path d={d} />)}</g>
+  <g class="inkr">{INKR.map((d) => <path d={d} />)}</g>
 </svg>

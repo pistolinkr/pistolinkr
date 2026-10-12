@@ -2,6 +2,10 @@
 import Short from './Short.astro';
 import { nav } from '../data/content';
 ---
+<div class="blur top" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="blur bot" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="blur side lft" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="blur side rgt" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 <header class="site-header">
   <nav class="in">
     <a class="home" href="#top" aria-label="pistolinkr home"><Short /></a>
@@ -13,3 +17,28 @@ import { nav } from '../data/content';
     </div>
   </nav>
 </header>
+<script>
+  // Header hides (html.nav-up) while the big hero mark scrolls by, and below it while scrolling down; any scroll up
+  // brings it back. Shown at the very top. The blur stays.
+  // Slide time follows scroll speed (lifted from g.gearservice): a flick snaps it (150ms), a slow drag eases it (600ms).
+  const root = document.documentElement;
+  const mark = document.querySelector('.hero-mark');
+  let lastY = scrollY, py = lastY, pt = performance.now(), v = 0; // v: px/ms, smoothed
+  const set = (hide: boolean) => {
+    if (hide === root.classList.contains('nav-up')) return;
+    const k = Math.min(Math.max((v - 0.3) / (3 - 0.3), 0), 1);
+    root.style.setProperty('--nav-dur', `${Math.round(600 - k * 450)}ms`);
+    root.classList.toggle('nav-up', hide);
+  };
+  const inMark = () => !!mark && scrollY > 72 && mark.getBoundingClientRect().bottom > 72;
+  addEventListener('scroll', () => {
+    const y = scrollY, t = performance.now(), dy = Math.abs(y - py);
+    v = t - pt > 100 ? dy / 16 : v * 0.5 + (dy / Math.max(t - pt, 1)) * 0.5; // after a pause, count the gap as one frame
+    py = y; pt = t;
+    if (inMark()) { set(true); lastY = y; return; }
+    if (Math.abs(y - lastY) < 6) return; // ignore jitter
+    set(y > lastY && y > 72);
+    lastY = y;
+  }, { passive: true });
+  set(inMark());
+</script>

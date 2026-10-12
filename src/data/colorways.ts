@@ -18,7 +18,8 @@ export type ColorwayKey = keyof typeof colorways;
 // route (no slashes; '' = "/") -> colorway
 export const routes: Record<string, ColorwayKey> = {
   '': 'paper',
-  'ink-lime': 'ink-lime',
+  paper: 'paper',
+  ink: 'ink-lime',
   lilac: 'lilac',
   lime: 'lime',
 };

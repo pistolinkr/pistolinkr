@@ -19,8 +19,8 @@ Each colorway is its own route, like the team site:
 
 | route       | colorway |
 |-------------|----------|
-| `/`         | paper (default) |
-| `/ink-lime` | ink-lime |
+| `/`, `/paper` | paper (default) |
+| `/ink`      | ink-lime (`/ink-lime` redirects here) |
 | `/lilac`    | lilac |
 | `/lime`     | lime |
 

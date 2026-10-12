@@ -9,19 +9,41 @@ import { name } from '../data/content';
       <p class="eb">{name.eyebrow}</p>
       <h2 class="h2">{name.title}</h2>
     </div>
-    {name.halves.map((h) => (
-      <div class="split">
-        <NameMark lit={h.lit} />
-        <div class="col">
-          <p class="kicker">{h.kicker}</p>
-          <p class="body">{h.body}</p>
-          <ul class="li">
-            {h.items.map((it) => (
-              <li><Colon /><span><b>{it.term}</b>{it.note && <span class="soft"> · {it.note}</span>}</span></li>
-            ))}
-          </ul>
+    <div class="name-scene" data-focus={name.halves[0].lit} style={`--n:${name.halves.length}`}>
+      <div class="name-stage">
+        <NameMark />
+        <div class="name-steps">
+          {name.halves.map((h, i) => (
+            <div class:list={['name-step col', { 'is-on': i === 0 }]} data-lit={h.lit}>
+              <p class="kicker">{h.kicker}</p>
+              <p class="body">{h.body}</p>
+              <ul class="li">
+                {h.items.map((it) => (
+                  <li><Colon /><span><b>{it.term}</b>{it.note && <span class="soft"> · {it.note}</span>}</span></li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
-    ))}
+    </div>
   </div>
 </section>
+<script>
+  // The stage pins for --n screens; each screen of scroll is one scene. Crossing into the next swaps the whole
+  // scene at once (lit half + its copy) instead of the copy scrolling past.
+  const scene = document.querySelector<HTMLElement>('.name-scene');
+  if (scene) {
+    const steps = [...scene.querySelectorAll<HTMLElement>('.name-step')];
+    const update = () => {
+      const r = scene.getBoundingClientRect();
+      const p = -r.top / Math.max(r.height - innerHeight, 1); // 0 … 1 while pinned
+      const i = Math.min(Math.max(Math.floor(p * steps.length), 0), steps.length - 1);
+      if (scene.dataset.focus === steps[i].dataset.lit) return;
+      scene.dataset.focus = steps[i].dataset.lit;
+      steps.forEach((s, j) => s.classList.toggle('is-on', j === i));
+    };
+    addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>
